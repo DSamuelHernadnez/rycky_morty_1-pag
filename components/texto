@@ -1,0 +1,184 @@
+Este es el codigo que deseo para mi  proyecto de Ricky And Morty
+
+Este codigo trabaja pára nuestra app completa.
+Aplicamos un fondo
+
+import './App.css';
+import Card from './components/Card.jsx';
+import Cards from './components/Cards.jsx';
+import SearchBar from './components/SearchBar.jsx';
+import characters, { Rick } from './data.js';
+
+function App() {
+   return (
+      <div className='App'>
+         <SearchBar onSearch={(characterID) => window.alert(characterID)} />
+         <Cards characters={characters} />
+         <Card
+            id={Rick.id}
+            name={Rick.name}
+            status={Rick.status}
+            species={Rick.species}
+            gender={Rick.gender}
+            origin={Rick.origin.name}
+            image={Rick.image}
+            onClose={() => window.alert('Emulamos que se cierra la card')}
+         />
+      </div>
+   );
+}
+
+export default App;
+
+
+Este codigo trabaja para la parte del  las tarjetaS de los personajes.
+Buscamos algo futurista.
+ 
+
+import styled from 'styled-components';
+
+const StyledCard = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 2px solid #00ff88;
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 0 15px #00ff88;
+  transition: transform 0.3s ease;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #00ff88;
+  }
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4b2b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+`;
+
+const CharacterImage = styled.img`
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+`;
+
+export default function Card(props) {
+   return (
+      <StyledCard>
+         <CloseButton onClick={props.onClose}>X</CloseButton>
+         <h2 style={{ color: '#00ff88', fontSize: '1.2rem' }}>{props.name}</h2>
+         <p>Status: {props.status}</p>
+         <p>Species: {props.species}</p>
+         <p>Gender: {props.gender}</p>
+         <p>Origin: {props.origin}</p>
+         <CharacterImage src={props.image} alt={props.name} />
+      </StyledCard>
+   );
+}
+
+Este codigo trabaja para el ordehn de las cartas.
+
+import Card from './Card';
+import styled from 'styled-components';
+
+const CardsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+`;
+
+export default function Cards(props) {
+   const { characters } = props;
+   return (
+      <CardsContainer>
+         {characters.map((character) => (
+            <Card
+               key={character.id} 
+               name={character.name}
+               status={character.status}
+               species={character.species}
+               gender={character.gender}
+               origin={character.origin.name}   
+               image={character.image}
+               onClose={() => window.alert('Emulando el cierre de la card')}
+            />
+         ))}
+      </CardsContainer>
+   );
+}
+
+Por ultimo trabajamos en la parte de buscador.
+
+ import styled from 'styled-components';
+
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+`;
+
+const SearchInput = styled.input`
+  padding: 10px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #00ff88;
+  background: #000;
+  color: #fff;
+  outline: none;
+`;
+
+const SearchButton = styled.button`
+  padding: 10px 20px;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  background: #00ff88;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover { background: #00cc6e; }
+`;
+
+export default function SearchBar(props) {
+   const { onSearch } = props;
+   return (
+      <SearchContainer>
+         <SearchInput type='search' placeholder="Ingresa ID..." />
+         <SearchButton onClick={() => onSearch('Un ID de prueba')}>Agregar</SearchButton>
+      </SearchContainer>
+   );
+}
+
+
+Que buscamos con esté diseño:
+
+Detalle de los Elementos Visuales en la Imagen:
+El Fondo del "Universo": Un gradiente radial profundo que simula el espacio estrellado y nebulosas, envolviendo todo el contenido.
+
+Panel de Búsqueda: Situado en la parte superior, con un input oscuro y un botón de "Agregar" con un borde neón verde brillante, listo para interactuar.
+
+Contenedor de Tarjetas (Grid): Un diseño organizado que muestra varias tarjetas alineadas y distribuidas proporcionalmente.
+
+Las Tarjetas Individuales (Card):
+
+Estilo Glassmorphism: Un fondo semi-transparente y desenfocado que da un aspecto de cristal flotante.
+
+Bordes Neón: Un resplandor (glow) verde cian alrededor de cada tarjeta que destaca los bordes.
+
+Tipografía Tecnológica: Fuentes modernas y limpias para los títulos y detalles del personaje.
+
+Imágenes Nítidas: Las fotos de los personajes con un ligero borde para integrarlas al diseño.
+
+Botón de Cierre: El pequeño botón rojo de "X" en la esquina superior derecha de cada tarjeta. 
+
