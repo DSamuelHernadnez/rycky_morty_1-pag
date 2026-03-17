@@ -1,4 +1,4 @@
-.card {
+/* .card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 2px solid #00ff88;
@@ -20,4 +20,211 @@
     width: 100%;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
+} */
+
+.card {
+    background: rgba(15, 23, 42, 0.9);
+    /* Un poco más opaco para resaltar el rayo */
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    position: relative;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    /* Crucial para contener el efecto de rayo */
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+/* El "Rayo" que gira */
+.card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent,
+            #e90909,
+            /* Color del rayo cian */
+            #054ebd,
+            /* Púrpura eléctrico */
+            transparent 30%);
+    animation: rotate-electric 3s linear infinite;
+    z-index: -2;
+}
+
+/* Capa interna para ocultar el centro del gradiente y dejar solo el borde */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    /* Grosor del borde */
+    background: rgba(15, 15, 15, 0.95);
+    border-radius: 12px;
+    z-index: -1;
+}
+
+/* Animación de rotación */
+@keyframes rotate-electric {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Dinamismo al hacer Hover */
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(167, 243, 208, 0.2);
+}
+
+/* --- Marco Eléctrico Animado para la Imagen --- */
+.imageContainer {
+    position: relative;
+    width: 100%;
+    top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 3px;
+    margin-bottom: 15px;
+}
+
+.imageContainer::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, #a7f3d0 20%, #10b981 30%, transparent 50%);
+    animation: rotate-electric 4s linear infinite;
+    z-index: 1;
+}
+
+.imageContainer::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #0f172a;
+    border-radius: 50px;
+    z-index: 2;
+}
+
+.image {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 3;
+    border-radius: 50px;
+    filter: grayscale(20%) contrast(110%);
+}
+
+/* --- Tipografía y Detalles --- */
+.name {
+    color: #fafafa;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px 0;
+    text-shadow: 0 0 10px rgb(245, 7, 7);
+}
+
+.dataGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    border-top: 1px solid rgba(167, 243, 208, 0.2);
+    padding-top: 10px;
+}
+
+/* .dataItem span {
+    background-clip: #e90909;
+    font-size: 15px;
+    color: #94a3b8;
+    display: block;
+    letter-spacing: 1px;
+} */
+
+/* .dataItem {
+  margin-bottom: 12px;
+  position: relative;
+} */
+
+.dataItem span {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #f8fafc;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    /* El Recuadro */
+    background: rgba(233, 9, 9, 0.1);
+    /* Fondo rojizo sutil */
+    border-left: 3px solid #e90909;
+    /* Acento lateral de "alerta" */
+    border-right: 1px solid rgba(233, 9, 9, 0.3);
+    border-top: 1px solid rgba(233, 9, 9, 0.3);
+    border-bottom: 1px solid rgba(233, 9, 9, 0.3);
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(233, 9, 9, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Efecto cuando pasas el mouse sobre el dato */
+.dataItem span:hover {
+    background: rgba(233, 9, 9, 0.25);
+    box-shadow: 0 0 15px rgba(233, 9, 9, 0.4);
+    color: #fff;
+    transform: translateX(5px);
+    /* Pequeño desplazamiento lateral */
+}
+
+.closeButton {
+    position: absolute;
+    top: 8px;
+    /* Un poco más de aire desde el borde */
+    right: 8px;
+
+    /* Dimensiones fijas para asegurar el círculo */
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(239, 68, 68, 0.15);
+    border: 2px solid #ef4444;
+    color: #ef4444;
+
+    /* El truco del círculo */
+    border-radius: 50%;
+    padding: 0;
+    /* Eliminamos padding para que no deforme el círculo */
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+    background: #ef4444;
+    color: white;
+}
+
+@keyframes rotate-electric {
+    100% {
+        transform: rotate(1turn);
+    }
 }
